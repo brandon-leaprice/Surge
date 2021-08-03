@@ -1,12 +1,12 @@
 <div>
     <form wire:submit.prevent="register">
-        <input wire:model="name" type="text">
+        <input wire:model.lazy="name" type="text">
         @error('name')  <span>{{$message}}</span> @enderror
-        <input wire:model="email" type="text">
+        <input wire:model.lazy="email" type="text">
         @error('email')  <span>{{$message}}</span> @enderror
-        <input wire:model="password" type="password">
+        <input wire:model.lazy="password" type="password">
         @error('password')  <span>{{$message}}</span> @enderror
-        <input wire:model="passwordConfirmation" type="password">
+        <input wire:model.lazy="passwordConfirmation" type="password">
 
         <button type="submit">Register</button>
     </form>

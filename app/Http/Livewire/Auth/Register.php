@@ -14,7 +14,10 @@ class Register extends Component
     public $passwordConfirmation;
 
 
-
+    public function updatedEmail()
+    {
+        $this->validate(['email' => 'unique:users']);
+    }
 
     public function register()
     {

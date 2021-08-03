@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -13,6 +14,21 @@ class RegistrationTest extends TestCase
 
     use RefreshDatabase;
 
+
+    function test_see_email_hasnt_already_been_taken_validation_message_as_user_types()
+    {
+        User::create([
+            'name' => 'test',
+            'email' => 'test@gmail.com',
+            'password' => Hash::make('test')
+        ]);
+
+        Livewire::test('auth.register')
+            ->set('email', 'tes@gmail.com')
+            ->assertHasNoErrors()
+            ->set('email', 'test@gmail.com')
+            ->assertHasErrors(['email' => 'unique']);
+    }
 
     public function test_can_see_register_component()
     {
