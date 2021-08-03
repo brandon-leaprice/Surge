@@ -15,7 +15,7 @@
                             <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
                                 <x-table>
                                     <x-slot name="head">
-                                        <x-table.heading sortable direction="asc">Title</x-table.heading>
+                                        <x-table.heading sortable wire:click="sortBy('title')" :direction="$sortField === 'title' ? $sortDirection : null">Title</x-table.heading>
                                         <x-table.heading>Amount</x-table.heading>
                                         <x-table.heading>Status</x-table.heading>
                                         <x-table.heading>Date</x-table.heading>
