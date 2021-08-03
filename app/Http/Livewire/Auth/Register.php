@@ -14,12 +14,20 @@ class Register extends Component
     public $passwordConfirmation;
 
 
+
+
     public function register()
     {
+        $data =  $this->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6|same:passwordConfirmation',
+        ]);
+
         User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => \Hash::make($this->password),
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => \Hash::make($data['password']),
         ]);
     }
 
