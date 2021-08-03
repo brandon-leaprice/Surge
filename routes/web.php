@@ -17,6 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/register', Register::class);
 
 Route::get('/', function () {
-    return view('test', ['transactions' => \App\Models\Transaction::all()]);
+    return view('test');
 });
 
