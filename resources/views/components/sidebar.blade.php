@@ -175,9 +175,7 @@
             </button>
         </div>
         <main class="flex-1 relative z-0 overflow-y-auto focus:outline-none">
-            <div class="py-4">
-                {{$slot}}
-            </div>
+            {{$body}}
         </main>
     </div>
 </div>
