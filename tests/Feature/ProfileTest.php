@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use App\View\Components\Auth;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
@@ -21,6 +22,35 @@ class ProfileTest extends TestCase
             ->get('/profile')
             ->assertSuccessful()
             ->assertSeeLivewire('profile');
+    }
+
+
+
+    function test_profile_info_is_pre_populated()
+    {
+        $user = User::factory()->create([
+            'username' => 'foo',
+            'about' => 'bar',
+        ]);
+
+        Livewire::actingAs($user)
+            ->test('profile')
+            ->assertSet('username', 'foo')
+            ->assertSet('about', 'bar');
+    }
+
+
+    function test_message_is_shown_on_save()
+    {
+        $user = User::factory()->create([
+            'username' => 'foo',
+            'about' => 'bar',
+        ]);
+
+        Livewire::actingAs($user)
+            ->test('profile')
+            ->call('save')
+            ->assertEmitted('notify-saved');
     }
 
 
