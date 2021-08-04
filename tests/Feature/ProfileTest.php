@@ -26,21 +26,18 @@ class ProfileTest extends TestCase
 
     function test_can_update_profile()
     {
+        $this->withoutExceptionHandling();
         $user = User::factory()->create();
 
-        Livewire::actingAs($user)
-            ->test('profile')
-            ->set('username', 'foo')
-            ->set('about', 'bar')
-            ->call('save');
-
-        $user->refresh();
-
-        $user->save();
+       Livewire::actingAs($user)->test('profile')
+           ->set('username', 'foo')
+           ->set('about', 'bar')
+           ->call('save');
 
 
         $this->assertEquals('foo', $user->username);
         $this->assertEquals('bar', $user->about);
+
     }
 
     function test_username_must_less_than_24_characters()
