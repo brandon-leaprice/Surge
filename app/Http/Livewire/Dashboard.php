@@ -33,6 +33,6 @@ class Dashboard extends Component
     {
         sleep(1);
         return view('livewire.dashboard', ['transactions' =>
-            Transaction::query()->search('title', $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(10)]);
+            Transaction::query()->search('title', $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(10)])->layout('layouts.auth');
     }
 }

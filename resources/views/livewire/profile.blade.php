@@ -1,6 +1,5 @@
-<div>
+<div class="p-10">
     <h1 class="text-2xl font-semibold text-gray-900">Profile</h1>
-
     <form wire:submit.prevent="save">
         <div class="mt-6 sm:mt-5">
             <div>

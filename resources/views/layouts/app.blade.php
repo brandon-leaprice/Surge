@@ -1,15 +1,4 @@
-<html>
-<head>
+<x-layouts.base>
+            {{$slot}}
+</x-layouts.base>
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    @livewireStyles
-</head>
-
-<body>
-    @yield('content')
-
-@livewireScripts
-</body>
-</html>
