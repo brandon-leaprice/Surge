@@ -12,7 +12,7 @@
 
             <x-input.group label="About" for="about">
 
-                <x-input.textarea infoMessage="Write any sentence" wire:model="about" id="about" rows="5" />
+               <x-input.rich-text wire:model.lazy="about" id="about" :initial-value="$about" />
 
                 @error('about') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
             </x-input.group>
