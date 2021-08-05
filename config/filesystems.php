@@ -44,7 +44,7 @@ return [
 
         'avatars' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => storage_path('app/avatars'),
             'url' => env('APP_URL').'/avatars',
             'visibility' => 'public',
         ],
@@ -74,7 +74,6 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
         public_path('avatars') => storage_path('app/avatars'),
     ],
 

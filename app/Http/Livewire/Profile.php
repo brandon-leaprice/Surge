@@ -4,13 +4,16 @@ namespace App\Http\Livewire;
 
 use Carbon\Carbon;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Profile extends Component
 {
+    use WithFileUploads;
 
     public $username = '';
     public $about = '';
-    public $birthday;
+    public $birthday = null;
+    public $newAvatar;
 
     public function mount()
     {
@@ -26,14 +29,18 @@ class Profile extends Component
         $profileData = $this->validate([
             'username' => 'max:24',
             'about' => 'max:140',
-            'birthday' => 'sometimes'
+            'birthday' => 'sometimes',
+            'newAvatar' => 'image|max:1000'
         ]);
+
+        $filename = $this->newAvatar->store('/', 'avatars');
 
         $user = \Auth::user();
 
         $user->username = $profileData['username'];
         $user->about = $profileData['about'];
         $user->birthday = Carbon::createFromFormat('d/m/Y', $profileData['birthday'])->format('Y-m-d');
+        $user->avatar = $filename;
 
         $user->save();
 
