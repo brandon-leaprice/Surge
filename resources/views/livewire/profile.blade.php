@@ -4,30 +4,30 @@
         <div class="mt-6 sm:mt-5 space-y-3">
 
             <x-input.group label="Username" for="username">
-                <x-input.text wire:model="username" id="username"  leadingAddon="surge.com/" />
+                <x-input.text wire:model="user.username" id="username" name="username"  leadingAddon="surge.com/" />
 
-                @error('username') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                @error('user.username') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
             </x-input.group>
 
 
             <x-input.group label="About" for="about">
 
-               <x-input.rich-text wire:model.lazy="about" id="about" :initial-value="$about" />
+               <x-input.rich-text wire:model.lazy="user.about" id="about" name="about" :initial-value="$user->about" />
 
-                @error('about') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                @error('user.about') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
             </x-input.group>
 
 
             <x-input.group label="Birthday" for="birthday">
-                <x-input.date placeholder="DD/MM/YYYY" id="birthday" wire:model="birthday"  />
+                <x-input.date id="birthday" placeholder="MM/DD/YYYY" id="birthday" wire:model.defer="user.birthday"  />
 
-                @error('birthday') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                @error('user.birthday') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
             </x-input.group>
 
             <x-input.group label="Avatar" for="avatar">
-                <input wire:model="newAvatar" type="file">
+                <input id="avatar" wire:model="avatar" type="file">
 
-                @error('newAvatar') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                @error('avatar') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
             </x-input.group>
         </div>
 

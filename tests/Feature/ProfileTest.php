@@ -6,6 +6,7 @@ use App\Models\User;
 use App\View\Components\Auth;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -35,8 +36,8 @@ class ProfileTest extends TestCase
 
         Livewire::actingAs($user)
             ->test('profile')
-            ->assertSet('username', 'foo')
-            ->assertSet('about', 'bar');
+            ->assertSet('user.username', 'foo')
+            ->assertSet('user.about', 'bar');
     }
 
 
@@ -53,17 +54,32 @@ class ProfileTest extends TestCase
             ->assertEmitted('notify-saved');
     }
 
+    function test_can_upload_avatar()
+    {
+        $user = User::factory()->create();
+
+        $file = UploadedFile::fake()->image('avatar.png');
+
+        \Storage::fake('avatars');
+
+        Livewire::actingAs($user)
+            ->test('profile')
+            ->set('upload', $file)
+            ->call('save');
+    }
+
 
     function test_can_update_profile()
     {
-        $this->withoutExceptionHandling();
         $user = User::factory()->create();
 
-       Livewire::actingAs($user)->test('profile')
-           ->set('username', 'foo')
-           ->set('about', 'bar')
-           ->call('save');
+        Livewire::actingAs($user)
+            ->test('profile')
+            ->set('user.username', 'foo')
+            ->set('user.about', 'bar')
+            ->call('save');
 
+        $user->refresh();
 
         $this->assertEquals('foo', $user->username);
         $this->assertEquals('bar', $user->about);
@@ -76,10 +92,10 @@ class ProfileTest extends TestCase
 
         Livewire::actingAs($user)
             ->test('profile')
-            ->set('username', str_repeat('a', 25))
-            ->set('about', 'bar')
+            ->set('user.username', str_repeat('a', 25))
+            ->set('user.about', 'bar')
             ->call('save')
-            ->assertHasErrors(['username' => 'max']);
+            ->assertHasErrors(['user.username' => 'max']);
     }
 
     function test_about_must_less_than_140_characters()
@@ -88,9 +104,9 @@ class ProfileTest extends TestCase
 
         Livewire::actingAs($user)
             ->test('profile')
-            ->set('username', 'foo')
-            ->set('about', str_repeat('a', 141))
+            ->set('user.username', 'foo')
+            ->set('user.about', str_repeat('a', 141))
             ->call('save')
-            ->assertHasErrors(['about' => 'max']);
+            ->assertHasErrors(['user.about' => 'max']);
     }
 }

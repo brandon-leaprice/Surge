@@ -1,6 +1,6 @@
 <div
     x-data=""
-    x-init="new Pikaday({ field: $refs.input, format: 'DD/MM/YYYY' })"
+    x-init="new Pikaday({ field: $refs.input, format: 'YYYY/MM/DD' })"
     @change="$dispatch('input', $event.target.value)"
     class="flex rounded-md shadow-md">
 
