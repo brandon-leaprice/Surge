@@ -2,14 +2,21 @@
         <div class="py-6 px-10">
             <h1 class="text-2xl">Dashboard</h1>
         </div>
-        <div class="py-4">
+        <div class="py-4 space-y-4">
+
             <div class="hidden sm:block">
                 <div class="mx-auto px-4 sm:px-6 lg:px-8">
+
+                    <div class="flex justify-between">
+                        <div class="w-1/4">
+                            <x-input.text wire:model="search" placeholder="Search Transactions..." />
+                        </div>
+
+                        <div>
+                            <x-button.primary wire:click="create"> New</x-button.primary>
+                        </div>
+                    </div>
                     <div class="flex flex-col mt-2">
-
-                        <x-input placeholder="Transactions..."
-                                 class="border-gray-400 border rounded pl-1" wire:model="search" />
-
                         <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
                             <x-table>
                                 <x-slot name="head">
