@@ -18,6 +18,11 @@
             </x-input.group>
 
 
+            <x-input.group label="Birthday" for="birthday">
+                <x-input.date placeholder="DD/MM/YYYY" id="birthday" wire:model="birthday"  />
+            </x-input.group>
+
+
             <div class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-t sm:border-gray-200 sm:pt-5">
                 <label for="photo" class="block text-sm leading-5 font-medium text-gray-700">
                     Photo
