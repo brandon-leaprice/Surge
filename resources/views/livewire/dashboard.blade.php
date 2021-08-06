@@ -3,7 +3,7 @@
             <h1 class="text-2xl">Dashboard</h1>
         </div>
         <div class="py-4 space-y-4">
-
+            <!-- Top Bar -->
             <div class="hidden sm:block">
                 <div class="mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -28,7 +28,7 @@
                             <x-button.primary wire:click="create"> New</x-button.primary>
                         </div>
                     </div>
-
+                    <!-- Advance Search -->
                     <div>
                     @if ($showFilters)
                         <div class="bg-cool-gray-200 p-4 rounded shadow-inner flex relative">
@@ -66,7 +66,7 @@
                         </div>
                     @endif
                 </div>
-
+                    <!-- Transactions Table -->
                     <div class="flex flex-col mt-2">
                         <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
                             <x-table>
@@ -151,7 +151,7 @@
                 </div>
             </div>
 
-
+            <!-- Delete Transactions Modal -->
             <form wire:submit.prevent="deleteSelected">
                 <x-modal.confirmation wire:model.defer="showDeleteModal">
                     <x-slot name="title">Delete Transaction</x-slot>
@@ -168,6 +168,7 @@
                 </x-modal.confirmation>
             </form>
 
+            <!-- Save Transactions Modal -->
             <form wire:submit.prevent="save">
                 <x-modal.dialog wire:model.defer="showEditModal">
                     <x-slot name="title">Edit Transaction</x-slot>
