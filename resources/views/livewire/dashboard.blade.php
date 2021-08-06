@@ -15,7 +15,15 @@
                         </div>
 
 
-                        <div class="space-x-2">
+                        <div class="space-x-2 flex items-center">
+                            <x-input.group borderless paddingless for="perPage" label="Per Page">
+                                <x-input.select wire:model="perPage" id="perPage">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                </x-input.select>
+                            </x-input.group>
+
                             <x-dropdown label="Bulk Actions">
                                 <x-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2">
                                     <x-icon.download class="text-gray-400"/> <span>Export</span>
@@ -74,10 +82,10 @@
                                     <x-table.heading class="pr-0 w-8">
                                         <x-input.checkbox wire:model="selectPage" />
                                     </x-table.heading>
-                                    <x-table.heading sortable wire:click="sortBy('title')" :direction="$sortField === 'title' ? $sortDirection : null">Title</x-table.heading>
-                                    <x-table.heading>Amount</x-table.heading>
-                                    <x-table.heading>Status</x-table.heading>
-                                    <x-table.heading>Date</x-table.heading>
+                                    <x-table.heading sortable multiColumn wire:click="sortBy('title')" :direction="$sorts['title'] ?? null">Title</x-table.heading>
+                                    <x-table.heading sortable multiColumn wire:click="sortBy('amount')" :direction="$sorts['amount'] ?? null">Amount</x-table.heading>
+                                    <x-table.heading sortable multiColumn wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">Status</x-table.heading>
+                                    <x-table.heading sortable multiColumn wire:click="sortBy('date')" :direction="$sorts['date'] ?? null">Date</x-table.heading>
                                     <x-table.heading>Actions</x-table.heading>
                                 </x-slot>
                                 <x-slot name="body">
@@ -88,6 +96,7 @@
                                                     <div>
                                                         <span>You have selected <strong>{{ $transactions->count() }}</strong> transactions, do you want to select all
                                                         <strong>{{ $transactions->total() }}</strong>
+                                                            <x-button.link wire:click="selectAll" class="ml-1 text-blue-600">Select All</x-button.link>
                                                         </span>
                                                     </div>
                                                 @else
