@@ -14,7 +14,7 @@
 
 
             <x-input.group label="Birthday" for="birthday" :error="$errors->first('user.birthday')">
-                <x-input.date id="birthday" placeholder="MM/DD/YYYY" id="birthday" wire:model.defer="user.birthday"  />
+                <x-input.date  wire:model="user.birthday" id="birthday" placeholder="MM/DD/YYYY" id="birthday"  />
             </x-input.group>
 
 

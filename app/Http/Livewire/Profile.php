@@ -34,6 +34,7 @@ class Profile extends Component
 
         $this->user->save();
 
+
         if($this->avatar)
         {
             $this->user->avatar = $this->avatar->store('/', 'avatars');
