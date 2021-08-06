@@ -14,7 +14,17 @@
                             <x-button.link wire:click="$toggle('showFilters')">@if ($showFilters) Hide @endif Advanced Search...</x-button.link>
                         </div>
 
-                        <div>
+
+                        <div class="space-x-2">
+                            <x-dropdown label="Bulk Actions">
+                                <x-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2">
+                                    <x-icon.download class="text-gray-400"/> <span>Export</span>
+                                </x-dropdown.item>
+
+                                <x-dropdown.item type="button" wire:click="deleteSelected" class="flex items-center space-x-2">
+                                    <x-icon.trash class="text-gray-400"/> <span>Delete</span>
+                                </x-dropdown.item>
+                            </x-dropdown>
                             <x-button.primary wire:click="create"> New</x-button.primary>
                         </div>
                     </div>
@@ -61,6 +71,9 @@
                         <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
                             <x-table>
                                 <x-slot name="head">
+                                    <x-table.heading class="pr-0 w-8">
+                                        <x-input.checkbox />
+                                    </x-table.heading>
                                     <x-table.heading sortable wire:click="sortBy('title')" :direction="$sortField === 'title' ? $sortDirection : null">Title</x-table.heading>
                                     <x-table.heading>Amount</x-table.heading>
                                     <x-table.heading>Status</x-table.heading>
@@ -69,7 +82,11 @@
                                 </x-slot>
                                 <x-slot name="body">
                                     @forelse($transactions as $transaction)
-                                        <x-table.row wire:loading.class="opacity-75">
+                                        <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $transaction->id }}">
+                                            <x-table.cell class="pr-0">
+                                                <x-input.checkbox wire:model="selected" value="{{$transaction->id}}" />
+                                            </x-table.cell>
+
                                             <x-table.cell>
                                                 <x-icon.cash/>
                                                 <p class="text-gray-500 truncate group-hover:text-gray-900">
@@ -77,26 +94,26 @@
                                                 </p>
                                             </x-table.cell>
 
-                                            <x-table.cell align="center">
+                                            <x-table.cell>
                                                 <span class="text-gray-900 font-medium">${{$transaction->amount}}</span>
                                             </x-table.cell>
 
-                                            <x-table.cell align="center">
+                                            <x-table.cell>
                                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-{{$transaction->getStatusColourAttribute()}}-100 text-green-800 capitalize">
                                                       {{$transaction->status}}
                                                     </span>
                                             </x-table.cell>
 
 
-                                            <x-table.cell align="center">{{$transaction->date}}</x-table.cell>
+                                            <x-table.cell>{{$transaction->date}}</x-table.cell>
 
-                                            <x-table.cell align="center">
+                                            <x-table.cell>
                                                 <x-button.link wire:click="edit({{ $transaction->id }})">Edit</x-button.link>
                                             </x-table.cell>
                                         </x-table.row>
                                     @empty
                                         <x-table.row>
-                                            <x-table.cell colspan="5">
+                                            <x-table.cell colspan="6">
                                                 <div class="text-center py-8 text-2xl text-gray-400">
                                                     <h1>Couldn't find any results</h1>
                                                 </div>

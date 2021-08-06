@@ -1,7 +1,3 @@
-@props([
-    'align' => null
-])
-<td {{$attributes->merge()}} class="px-6 py-4 text-{{$align}} whitespace-nowrap text-sm text-gray-900">
-    <span>{{$slot}}</span>
+<td {{ $attributes->merge(['class' => 'px-6 py-4 whitespace-no-wrap text-sm leading-5 text-cool-gray-900']) }}>
+    {{ $slot }}
 </td>
-

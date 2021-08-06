@@ -15,6 +15,7 @@ class Dashboard extends Component
     public  $sortDirection = 'desc';
     public $showEditModal = false;
     public $showFilters = false;
+    public $selected = [];
     public $filters = [
         'search' => '',
         'status' => '',
@@ -26,6 +27,20 @@ class Dashboard extends Component
     public Transaction $editing;
 
     public $queryString = ['sortField', 'sortDirection'];
+
+    public function exportSelected()
+    {
+        return response()->streamDownload(function () {
+           echo Transaction::whereKey($this->selected)->toCsv();
+        }, 'transactions.csv');
+    }
+
+    public function deleteSelected()
+    {
+        $transactions = Transaction::whereKey($this->selected);
+
+        $transactions->delete();
+    }
 
 
     public function rules() { return [
