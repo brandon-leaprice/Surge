@@ -29,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
             return $string ? $this->where($field, 'like', '%' . $string . '%') : $this;
         });
 
+        Component::macro('notify', function ($message) {
+            $this->dispatchBrowserEvent('notify', $message);
+        });
+
         Builder::macro('toCsv', function () {
             $results = $this->get();
 

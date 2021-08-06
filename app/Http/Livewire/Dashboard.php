@@ -29,6 +29,8 @@ class Dashboard extends Component
 
     public $queryString = [];
 
+    public $listeners = ['refreshTransactions' => '$refresh'];
+
     public function rules() { return [
         'editing.title' => 'required|min:3',
         'editing.amount' => 'required',

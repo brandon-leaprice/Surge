@@ -33,6 +33,9 @@
                                     <x-icon.trash class="text-gray-400"/> <span>Delete</span>
                                 </x-dropdown.item>
                             </x-dropdown>
+
+                            <livewire:import-transactions />
+
                             <x-button.primary wire:click="create"> New</x-button.primary>
                         </div>
                     </div>
@@ -213,4 +216,3 @@
             </form>
         </div>
     </div>
-
